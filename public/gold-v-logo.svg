@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" fill="none">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFF2B0"/>
+      <stop offset="35%" stop-color="#FFD87A"/>
+      <stop offset="70%" stop-color="#D4AF37"/>
+      <stop offset="100%" stop-color="#B8860B"/>
+    </linearGradient>
+    <filter id="vGlow" x="0" y="0" width="160" height="160" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#D4AF37" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#vGlow)">
+    <path fill="url(#g)" d="M22 26 H56 L100 112 L84 140 L22 26 Z"/>
+    <path fill="#09111B" d="M36 39 H48 L89 118 L81 132 L36 39 Z"/>
+
+    <path fill="url(#g)" d="M138 26 H104 L68 95 L81 121 L138 26 Z"/>
+    <path fill="#09111B" d="M124 39 H112 L82 96 L88 109 L124 39 Z"/>
+
+    <path fill="url(#g)" d="M66 20 H84 L94 38 H76 L66 20 Z"/>
+  </g>
+</svg>

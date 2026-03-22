@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" fill="none">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFF2B0"/>
+      <stop offset="40%" stop-color="#FFD87A"/>
+      <stop offset="75%" stop-color="#D4AF37"/>
+      <stop offset="100%" stop-color="#B8860B"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Crest (split angular V) -->
+  <g transform="translate(400,74)">
+    <path fill="url(#gold)" d="M-86 -48 H-52 L-8 38 L-24 66 L-86 -48 Z"/>
+    <path fill="#09111B" d="M-72 -35 H-60 L-19 44 L-27 58 L-72 -35 Z"/>
+
+    <path fill="url(#gold)" d="M30 -48 H64 L28 21 L41 47 L98 -48 Z"/>
+    <path fill="#09111B" d="M45 -35 H57 L27 22 L33 35 L69 -35 Z"/>
+
+    <path fill="url(#gold)" d="M-20 -54 H-2 L8 -36 H-10 L-20 -54 Z"/>
+  </g>
+
+  <!-- Wordmark: stylized V + main title -->
+  <text
+    x="82"
+    y="270"
+    font-family="'Cormorant Garamond', 'Playfair Display', 'Times New Roman', serif"
+    font-size="146"
+    font-style="italic"
+    fill="url(#gold)"
+  >V</text>
+  <text
+    x="174"
+    y="266"
+    font-family="'Cormorant Garamond', Cinzel, 'Times New Roman', serif"
+    font-size="122"
+    letter-spacing="5.6"
+    fill="url(#gold)"
+  >ELARYN</text>
+
+  <!-- R flourish -->
+  <path d="M464 248 C494 254 520 272 546 293 C554 300 558 307 553 312 C547 318 534 314 522 305 C505 291 486 274 456 264" stroke="url(#gold)" stroke-width="6.5" stroke-linecap="round"/>
+</svg>

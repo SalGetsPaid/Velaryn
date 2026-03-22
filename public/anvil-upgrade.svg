@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 200" fill="none">
+  <defs>
+    <linearGradient id="goldAnvil" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFF2B0"/>
+      <stop offset="35%" stop-color="#FFD87A"/>
+      <stop offset="70%" stop-color="#D4AF37"/>
+      <stop offset="100%" stop-color="#B8860B"/>
+    </linearGradient>
+    <linearGradient id="darkSteel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#141A24"/>
+      <stop offset="100%" stop-color="#0A0F16"/>
+    </linearGradient>
+  </defs>
+
+  <!-- horn -->
+  <path d="M18 112 C70 84 120 92 150 112 C118 130 70 142 18 112 Z" fill="url(#goldAnvil)"/>
+  <path d="M150 112 C205 102 318 96 392 112 C320 132 206 136 150 112 Z" fill="url(#darkSteel)" stroke="url(#goldAnvil)" stroke-opacity="0.5"/>
+
+  <!-- body -->
+  <path d="M134 112 H304 C314 144 302 176 274 186 H168 C138 176 124 144 134 112 Z" fill="url(#darkSteel)" stroke="url(#goldAnvil)" stroke-opacity="0.6"/>
+
+  <!-- filigree medallion -->
+  <circle cx="219" cy="144" r="24" fill="#0A0F16" stroke="url(#goldAnvil)" stroke-opacity="0.75"/>
+  <path d="M219 128 C225 135 231 140 238 144 C231 148 225 153 219 160 C213 153 207 148 200 144 C207 140 213 135 219 128 Z" fill="url(#goldAnvil)"/>
+
+  <!-- feet -->
+  <path d="M170 186 L152 198 H200 L193 186 Z" fill="url(#goldAnvil)"/>
+  <path d="M264 186 L247 198 H294 L286 186 Z" fill="url(#goldAnvil)"/>
+</svg>
