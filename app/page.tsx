@@ -1,17 +1,48 @@
-import Link from "next/link";
+"use client";
+
+import { useEffect, useState } from "react";
+import { useCommandCenter } from "@/hooks/useCommandCenter";
+import { getDefaultUserProfile } from "@/lib/wealthEngine";
+import { useAICoach } from "@/hooks/useAICoach";
+import { useSocialProof } from "@/hooks/useSocialProof";
+import SovereignHome from "@/components/SovereignHome";
+
+const DEFAULT_PROFILE = getDefaultUserProfile();
 
 export default function Home() {
-  return (
-    <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center">
-      <h1 className="text-3xl font-bold">Velaryn</h1>
-      <p className="text-zinc-400 mt-2">AI Wealth Command System</p>
+  const [decision, setDecision] = useState<any>(null);
+  const [events, setEvents] = useState<Array<{ amount: number; date: string }>>([]);
 
-      <Link
-        href="/ledger"
-        className="mt-6 px-6 py-3 rounded-xl bg-amber-400 text-black font-bold"
-      >
-        Enter App
-      </Link>
-    </div>
+  // Fetch initial decision
+  useEffect(() => {
+    fetch("/api/decisions")
+      .then((res) => res.json())
+      .then((data) => setDecision(data.decision));
+  }, []);
+
+  // Get command and coaching
+  const { command } = useCommandCenter(events, decision);
+  const coachMessage = useAICoach(command, {});
+  const socialCount = useSocialProof();
+
+  const handleExecute = () => {
+    const boostedAmount = Math.round(command.amount);
+    setEvents((prev) => [{ amount: boostedAmount, date: new Date().toISOString() }, ...prev]);
+    
+    fetch("/api/execute", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ command }),
+    }).catch((err) => console.error("Execute failed:", err));
+  };
+
+  return (
+    <SovereignHome
+      action={decision}
+      onExecute={handleExecute}
+      coachMessages={coachMessage ? [coachMessage] : []}
+      socialCount={socialCount}
+      streak={DEFAULT_PROFILE.streakCount}
+    />
   );
 }
