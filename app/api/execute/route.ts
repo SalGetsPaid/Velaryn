@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { executeCommand } from "@/lib/executionEngine";
 import { buildMathProof, validatePrincipalIntent } from "@/lib/guardrails/fiduciary";
 import { createPendingDecree } from "@/lib/security/decreeStore";
 import { logSovereignAction } from "@/lib/security/auditTrail";
@@ -46,7 +47,13 @@ const ExecutePayloadSchema = z.object({
 
 export async function POST(req: Request): Promise<NextResponse> {
   try {
-    const raw = (await req.json()) as ExecutePayload;
+    const raw = (await req.json()) as ExecutePayload | { command?: { amount?: number } };
+
+    // Compatibility mode for simple local execution payloads.
+    if (raw && typeof raw === "object" && "command" in raw && raw.command) {
+      return NextResponse.json(executeCommand(raw.command));
+    }
+
     const parsed = ExecutePayloadSchema.safeParse(raw);
     if (!parsed.success) {
       return NextResponse.json({ error: "Invalid execute payload", detail: parsed.error.flatten() }, { status: 400 });

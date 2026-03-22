@@ -11,14 +11,14 @@ type AscensionNode = {
 type LedgerProjectionPanelsProps = {
   ascensionNodes: AscensionNode[];
   projectedForge: Array<{ label: string; projected: number }>;
-  currentArchiveValue: number;
+  currentArchiveValue?: number;
   useSimplifiedMode?: boolean;
 };
 
 export default function LedgerProjectionPanels({
   ascensionNodes,
   projectedForge,
-  currentArchiveValue,
+  currentArchiveValue = 0,
   useSimplifiedMode = false,
 }: LedgerProjectionPanelsProps) {
   const projectionLabel = getLabel("projectedForge30Y", useSimplifiedMode);
