@@ -27,7 +27,8 @@ import AICoachCard from "@/components/AICoachCard";
 import { useSubscription } from "@/hooks/useSubscription";
 import UpgradeCard from "@/components/UpgradeCard";
 import ForgeCard from "@/components/ForgeCard";
-import { triggerHaptic } from "@/lib/triggerHaptic";
+import { triggerHaptic } from "@/lib/haptics";
+import VelarynHeader from "@/components/VelarynHeader";
 
 const DEFAULT_PROFILE = getDefaultUserProfile();
 
@@ -122,83 +123,77 @@ export default function SovereignLedger() {
   );
 
   return (
-    <div className="min-h-screen px-4 py-6 pb-32 text-white space-y-8">
+    <div className="min-h-screen px-6 py-8 pb-36 text-white">
+      <div className="mx-auto max-w-5xl space-y-8">
+        <VelarynHeader />
 
-      {/* 🔥 HEADER */}
-      <div className="space-y-2">
-        <p className="text-[10px] uppercase tracking-[0.32em] text-amber-300">Premium Ledger</p>
-        <h1 className="font-[Playfair_Display] text-3xl text-amber-200 tracking-wide md:text-4xl">
-          Velaryn Sovereign Ledger
-        </h1>
-        <p className="text-zinc-400">Wealth Command System</p>
-      </div>
-
-      {/* 🔥 ALPHA DASHBOARD */}
-      <AlphaYieldDashboard
-        monthToDateValue={monthToDate}
-        monthOverMonthDelta={12}
-        chartData={[]}
-        sources={[]}
-        auditHash={`hash-${monthToDate}`}
-      />
-
-      {/* 🔥 CORE LOOP */}
-      <div className="grid gap-4 md:grid-cols-3">
-        <div className="md:col-span-1 rounded-2xl border border-amber-300/30 bg-gradient-to-b from-white/[0.08] to-black/[0.4] p-4 backdrop-blur-xl gold-glow">
-          <NextActionCard command={command} onExecute={handleExecute} />
+        <div className="text-center">
+          <p className="text-[11px] uppercase tracking-[0.3em] text-zinc-500">Sovereign Ledger Chamber</p>
         </div>
-        <ForgeCard title="Proof Layer">
-          <ProofCard proof={proof} />
-        </ForgeCard>
-        <ForgeCard title="Recovery Path">
-          <RecoveryCard recovery={recovery} />
-        </ForgeCard>
-      </div>
 
-      {/* 🔥 HOME COMMAND CENTER (10-Second Engine) */}
-      <HomeCommandCenter
-        action={action}
-        messages={coachMessage ? [coachMessage] : []}
-        count={count}
-        streak={DEFAULT_PROFILE.streakCount}
-        onExecute={handleExecute}
-      />
+        <NextActionCard command={command} onExecute={handleExecute} />
 
-      {/* 🔥 INTERACTION LAYER */}
-      <div className="grid gap-4 md:grid-cols-2">
-        <DailyForgeBuild
-          referralCode="VEL-ALPHA"
-          onStreakBonusChange={(val: number) => setMultiplier(val)}
+        <ProofCard proof={proof} />
+
+        {recovery ? <RecoveryCard recovery={recovery} /> : null}
+
+        <div className="velaryn-divider" />
+
+        <HomeCommandCenter
+          action={action}
+          messages={coachMessage ? [coachMessage] : []}
+          count={count}
+          streak={DEFAULT_PROFILE.streakCount}
+          onExecute={handleExecute}
         />
-        <ToggleMemeMultiplier enabled={memeMultiplier} onChange={setMemeMultiplier} />
+
+        <section className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="space-y-5">
+            <AlphaYieldDashboard
+              monthToDateValue={monthToDate}
+              monthOverMonthDelta={12}
+              chartData={[]}
+              sources={[]}
+              auditHash={`hash-${monthToDate}`}
+            />
+
+            <ForgeCard title="AI Insight" className="rounded-[2rem] p-6">
+              <p className="text-sm leading-7 text-white">
+                {decision?.explanation || "Analyzing your financial behavior..."}
+              </p>
+            </ForgeCard>
+
+            <ForgeCard title="Pulse Feed" className="rounded-[2rem] p-6">
+              <AlphaPulse />
+            </ForgeCard>
+          </div>
+
+          <div className="space-y-5">
+            <AICoachCard message={coachMessage} />
+            {!isPro && <UpgradeCard />}
+
+            <ForgeCard title="Forge Controls" className="rounded-[2rem] p-6">
+              <div className="grid gap-5 md:grid-cols-2">
+                <DailyForgeBuild
+                  referralCode="VEL-ALPHA"
+                  onStreakBonusChange={(val: number) => setMultiplier(val)}
+                />
+                <ToggleMemeMultiplier enabled={memeMultiplier} onChange={setMemeMultiplier} />
+              </div>
+            </ForgeCard>
+          </div>
+        </section>
+
+        <ForgeCard title="Identity" className="rounded-[2rem] p-6">
+          <SovereignAvatarCard profile={DEFAULT_PROFILE} />
+        </ForgeCard>
+
+        <ForgeCard title="Execution Timeline" className="rounded-[2rem] p-6">
+          <LedgerTimeline events={forgeEvents} locale="en-US" currency="USD" />
+        </ForgeCard>
       </div>
 
-      {/* 🔥 AI COACH */}
-      <AICoachCard message={coachMessage} />
-
-      {/* 🔥 UPGRADE GATE */}
-      {!isPro && <UpgradeCard />}
-
-      {/* 🔥 AI INSIGHT */}
-      <ForgeCard title="AI Insight">
-        <p className="mt-2 text-sm text-zinc-300">
-          {decision?.explanation || "Analyzing your financial behavior..."}
-        </p>
-      </ForgeCard>
-
-      {/* 🔥 PULSE */}
-      <ForgeCard title="Pulse Feed">
-        <AlphaPulse />
-      </ForgeCard>
-
-      {/* 🔥 AVATAR / IDENTITY */}
-      <SovereignAvatarCard profile={DEFAULT_PROFILE} />
-
-      {/* 🔥 TIMELINE */}
-      <LedgerTimeline events={forgeEvents} locale="en-US" currency="USD" />
-
-      {/* 🔥 STRIKE BUTTON (CORE ACTION) */}
-      <div className="fixed bottom-20 left-0 right-0 px-6">
+      <div className="fixed bottom-24 left-0 right-0 px-6">
         <ForgeStrike
           label={`EXECUTE $${command.amount}`}
           hint="Your next wealth move"

@@ -1,17 +1,22 @@
+import { motion } from "framer-motion";
+
 export default function RecoveryCard({ recovery }: any) {
   if (!recovery) return null;
 
   return (
-    <div className="p-4 rounded-xl bg-red-300/10 border border-red-300/20">
-      <p className="text-xs text-red-300">Recovery</p>
+    <motion.div
+      whileHover={{ scale: 1.01 }}
+      className="rounded-[2rem] bg-red-500/10 p-6 shadow-[0_0_40px_rgba(255,215,0,0.08)] transition hover:shadow-[0_0_30px_rgba(232,197,71,0.2)]"
+    >
+      <p className="text-[11px] uppercase tracking-[0.25em] text-red-300">Trajectory Correction</p>
 
-      <p className="mt-2">
-        Behind by ${recovery.deficit}
+      <p className="mt-3 text-lg text-white">
+        ${recovery.deficit} below optimal path
       </p>
 
       <p className="text-red-300">
-        Add ${recovery.recoveryPerDay}/day
+        Reallocate ${recovery.recoveryPerDay}/day for 3 days
       </p>
-    </div>
+    </motion.div>
   );
 }

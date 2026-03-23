@@ -6,9 +6,16 @@
 @import "@fontsource/playfair-display/700.css";
 
 :root {
+  --bg-primary: #02040a;
+  --bg-secondary: rgba(255, 255, 255, 0.02);
+  --gold-primary: #e8c547;
+  --gold-soft: rgba(232, 197, 71, 0.12);
+  --text-primary: #f5f5f5;
+  --text-secondary: #a1a1aa;
+  --success: #34d399;
+  --danger: #f87171;
   --gold: #e8c547;
   --bg: #020202;
-  --gold-primary: #e8c547;
   --gold-secondary: #f5e8c7;
   --emerald-primary: #34d399;
   --emerald-secondary: #10b981;
@@ -60,7 +67,7 @@ html {
 
 body {
   min-height: 100vh;
-  background: var(--bg);
+  background: var(--bg-primary);
   background-image:
     radial-gradient(circle at 50% -20%, var(--glow-subtle), transparent 45%),
     radial-gradient(circle at 0% 100%, rgba(212, 175, 55, 0.05), transparent 30%),
@@ -74,7 +81,7 @@ body {
 }
 
 .gold-glow {
-  box-shadow: 0 0 40px rgba(232, 197, 71, 0.15);
+  box-shadow: 0 0 60px rgba(232, 197, 71, 0.12);
 }
 
 .velaryn-bg {
@@ -89,13 +96,54 @@ body {
   background-size: 180px 180px;
 }
 
+.velaryn-hero-glow {
+  background:
+    radial-gradient(circle at 50% 18%, rgba(245, 215, 115, 0.2), transparent 28%),
+    radial-gradient(circle at 15% 22%, rgba(201, 130, 42, 0.18), transparent 18%),
+    radial-gradient(circle at 84% 18%, rgba(201, 130, 42, 0.18), transparent 18%);
+}
+
+.velaryn-leaf-blur::before,
+.velaryn-leaf-blur::after {
+  content: "";
+  position: absolute;
+  top: 4rem;
+  width: 16rem;
+  height: 16rem;
+  border-radius: 9999px;
+  filter: blur(48px);
+  opacity: 0.38;
+  pointer-events: none;
+}
+
+.velaryn-leaf-blur::before {
+  left: -4rem;
+  background: radial-gradient(circle, rgba(219, 147, 53, 0.5), transparent 62%);
+}
+
+.velaryn-leaf-blur::after {
+  right: -4rem;
+  background: radial-gradient(circle, rgba(241, 181, 82, 0.42), transparent 62%);
+}
+
+.velaryn-anvil-stage {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(0, 0, 0, 0)),
+    radial-gradient(circle at 50% 0%, rgba(232, 197, 71, 0.22), transparent 40%),
+    linear-gradient(180deg, rgba(10, 10, 12, 0.72), rgba(3, 3, 4, 0.95));
+  border: 1px solid rgba(232, 197, 71, 0.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 40px 80px rgba(0, 0, 0, 0.35);
+}
+
 .forge-card {
   position: relative;
   border-radius: 1rem;
-  border: 1px solid rgba(232, 197, 71, 0.2);
-  background: rgba(255, 255, 255, 0.03);
-  padding: 1.25rem;
-  box-shadow: 0 0 40px rgba(232, 197, 71, 0.15);
+  background: var(--bg-secondary);
+  backdrop-filter: blur(24px);
+  padding: 1.5rem;
+  box-shadow: 0 0 40px rgba(255, 215, 0, 0.08);
 }
 
 .forge-card::before {
@@ -106,7 +154,17 @@ body {
   right: 0;
   height: 1px;
   background: linear-gradient(to right, transparent, rgba(232, 197, 71, 0.9), transparent);
-  opacity: 0.4;
+  opacity: 0.14;
+}
+
+.velaryn-focus-layer {
+  background: linear-gradient(135deg, rgba(232, 197, 71, 0.18), rgba(0, 0, 0, 0));
+  border: 1px solid rgba(232, 197, 71, 0.2);
+}
+
+.velaryn-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(232, 197, 71, 0.2), transparent);
 }
 
 .execute-button:active {

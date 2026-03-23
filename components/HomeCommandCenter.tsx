@@ -16,12 +16,19 @@ type HomeCommandCenterProps = {
 
 export default function HomeCommandCenter({ action, messages, count, streak, onExecute }: HomeCommandCenterProps) {
   return (
-    <div className="space-y-4 p-4 max-w-xl mx-auto">
-      <NextActionCard action={action} onExecute={onExecute} />
-      <SocialProofBanner count={count} />
-      <CoachFeed messages={messages} />
-      <StreakCard streak={streak} />
-      <IdentityCard streak={streak} />
+    <div className="mx-auto grid max-w-5xl gap-5 lg:grid-cols-[1.1fr_0.9fr]">
+      <div className="space-y-5">
+        <NextActionCard action={action} onExecute={onExecute} />
+        <SocialProofBanner count={count} />
+      </div>
+
+      <div className="space-y-5">
+        <CoachFeed messages={messages} />
+        <div className="grid gap-5 sm:grid-cols-2">
+          <StreakCard streak={streak} />
+          <IdentityCard streak={streak} />
+        </div>
+      </div>
     </div>
   );
 }

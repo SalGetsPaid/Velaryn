@@ -1,3 +1,5 @@
+import ForgeCard from "@/components/ForgeCard";
+
 type BehaviorAlertProps = {
   score: number;
 };
@@ -6,8 +8,8 @@ export function BehaviorAlert({ score }: BehaviorAlertProps) {
   if (score > 70) return null;
 
   return (
-    <div className="p-3 border border-red-400/30 bg-red-500/10 text-xs">
-      You're disengaging. Take action today to stay on track.
-    </div>
+    <ForgeCard title="Trajectory Warning" className="rounded-[2rem] bg-red-500/10 p-5 shadow-none">
+      <p className="text-sm leading-6 text-white">You're disengaging. Take action today to stay on track.</p>
+    </ForgeCard>
   );
 }

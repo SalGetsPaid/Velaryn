@@ -1,14 +1,16 @@
 "use client";
+
 import Link from "next/link";
+import { Compass, Home, Library, ScrollText, Shield, Sparkles } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 const NAV_ITEMS = [
-  { icon: "🏠", label: "Home", href: "/" },
-  { icon: "📐", label: "Architect", href: "/strategist" },
-  { icon: "🔮", label: "Oracle", href: "/oracle" },
-  { icon: "📜", label: "Ledger", href: "/ledger" },
-  { icon: "�", label: "Library", href: "/library" },
-  { icon: "�🛡️", label: "Vault", href: "/settings" },
+  { icon: Home, label: "Home", href: "/" },
+  { icon: Compass, label: "Architect", href: "/strategist" },
+  { icon: Sparkles, label: "Oracle", href: "/oracle" },
+  { icon: ScrollText, label: "Ledger", href: "/ledger" },
+  { icon: Library, label: "Library", href: "/library" },
+  { icon: Shield, label: "Vault", href: "/settings" },
 ];
 
 export default function Navbar() {
@@ -19,7 +21,10 @@ export default function Navbar() {
   }
 
   return (
-    <nav aria-label="Primary navigation" className="fixed bottom-0 left-0 right-0 h-20 glass-card border-t border-white/10 flex justify-around items-center px-2 z-50">
+    <nav
+      aria-label="Primary navigation"
+      className="fixed bottom-4 left-1/2 z-50 flex w-[min(94vw,920px)] -translate-x-1/2 items-center justify-between rounded-[2rem] bg-white/[0.02] px-2 py-2 backdrop-blur-xl shadow-[0_0_60px_rgba(232,197,71,0.08)]"
+    >
       {NAV_ITEMS.map((item) => (
         <NavItem
           key={item.href}
@@ -33,16 +38,22 @@ export default function Navbar() {
   );
 }
 
-function NavItem({ icon, label, href, active }: { icon: string; label: string; href: string; active: boolean }) {
+function NavItem({ icon: Icon, label, href, active }: { icon: typeof Home; label: string; href: string; active: boolean }) {
   return (
     <Link
       href={href}
       aria-current={active ? "page" : undefined}
       aria-label={label}
-      className={`flex flex-col items-center gap-1 transition-colors min-w-0 ${active ? "text-amber-300" : "text-zinc-500"}`}
+      className={`flex min-w-0 flex-1 items-center justify-center rounded-[1.3rem] px-3 py-3 transition ${
+        active
+          ? "bg-gradient-to-br from-amber-300/12 to-transparent text-amber-200 shadow-[0_0_30px_rgba(232,197,71,0.16)]"
+          : "text-zinc-500 hover:bg-white/[0.02] hover:text-zinc-300"
+      }`}
     >
-      <span className="text-xl">{icon}</span>
-      <span className="text-[9px] uppercase font-black tracking-tight truncate">{label}</span>
+      <span className="flex flex-col items-center gap-1">
+        <Icon size={18} strokeWidth={1.8} />
+        <span className="truncate text-[10px] uppercase tracking-[0.2em]">{label}</span>
+      </span>
     </Link>
   );
 }

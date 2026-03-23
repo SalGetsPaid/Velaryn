@@ -6,7 +6,7 @@ import { getDefaultUserProfile } from "@/lib/wealthEngine";
 import { useAICoach } from "@/hooks/useAICoach";
 import { useSocialProof } from "@/hooks/useSocialProof";
 import SovereignHome from "@/components/SovereignHome";
-import { triggerHaptic } from "@/lib/triggerHaptic";
+import { triggerHaptic } from "@/lib/haptics";
 
 const DEFAULT_PROFILE = getDefaultUserProfile();
 
@@ -22,7 +22,7 @@ export default function Home() {
   }, []);
 
   // Get command and coaching
-  const { command } = useCommandCenter(events, decision);
+  const { command, proof, recovery } = useCommandCenter(events, decision);
   const coachMessage = useAICoach(command, {});
   const socialCount = useSocialProof();
 
@@ -42,6 +42,9 @@ export default function Home() {
   return (
     <SovereignHome
       action={decision}
+      command={command}
+      proof={proof}
+      recovery={recovery}
       onExecute={handleExecute}
       coachMessages={coachMessage ? [coachMessage] : []}
       socialCount={socialCount}

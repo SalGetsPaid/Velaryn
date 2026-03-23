@@ -1,8 +1,10 @@
+import ForgeCard from "@/components/ForgeCard";
+
 export function StreakCard({ streak }: any) {
   return (
-    <div className="p-4 border rounded-xl bg-white/5">
-      <p className="text-xs text-zinc-400">Streak</p>
-      <p className="text-2xl">{streak} days</p>
-    </div>
+    <ForgeCard title="Discipline" className="rounded-[2rem] p-6">
+      <p className="font-[Playfair_Display] text-3xl text-white">{streak} days</p>
+      <p className="mt-2 text-sm text-zinc-400">consistent execution streak</p>
+    </ForgeCard>
   );
 }
