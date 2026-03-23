@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
-import { dwollaClient } from "@/lib/dwolla";
+import { getDwollaClient } from "@/lib/dwolla";
 
 export async function POST(req: Request) {
   try {
     const { source, destination, amount } = await req.json();
+    const dwollaClient = getDwollaClient();
 
     await dwollaClient.post("transfers", {
       _links: {

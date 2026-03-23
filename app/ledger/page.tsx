@@ -26,6 +26,8 @@ import { useAICoach } from "@/hooks/useAICoach";
 import AICoachCard from "@/components/AICoachCard";
 import { useSubscription } from "@/hooks/useSubscription";
 import UpgradeCard from "@/components/UpgradeCard";
+import ForgeCard from "@/components/ForgeCard";
+import { triggerHaptic } from "@/lib/triggerHaptic";
 
 const DEFAULT_PROFILE = getDefaultUserProfile();
 
@@ -95,6 +97,8 @@ export default function SovereignLedger() {
 
   // ✅ Execute action
   const handleExecute = () => {
+    triggerHaptic(200);
+
     const boostedAmount = Math.round(command.amount * multiplier * (memeMultiplier ? 1.5 : 1));
     setEvents((prev) => [{ amount: boostedAmount, date: new Date().toISOString() }, ...prev]);
     executeReal(boostedAmount).catch((error) => {
@@ -118,11 +122,14 @@ export default function SovereignLedger() {
   );
 
   return (
-    <div className="min-h-screen bg-[#020202] text-white px-4 py-6 pb-32 space-y-8">
+    <div className="min-h-screen px-4 py-6 pb-32 text-white space-y-8">
 
       {/* 🔥 HEADER */}
-      <div>
-        <h1 className="text-3xl font-bold">Velaryn Sovereign Ledger</h1>
+      <div className="space-y-2">
+        <p className="text-[10px] uppercase tracking-[0.32em] text-amber-300">Premium Ledger</p>
+        <h1 className="font-[Playfair_Display] text-3xl text-amber-200 tracking-wide md:text-4xl">
+          Velaryn Sovereign Ledger
+        </h1>
         <p className="text-zinc-400">Wealth Command System</p>
       </div>
 
@@ -137,9 +144,15 @@ export default function SovereignLedger() {
 
       {/* 🔥 CORE LOOP */}
       <div className="grid gap-4 md:grid-cols-3">
-        <NextActionCard command={command} onExecute={handleExecute} />
-        <ProofCard proof={proof} />
-        <RecoveryCard recovery={recovery} />
+        <div className="md:col-span-1 rounded-2xl border border-amber-300/30 bg-gradient-to-b from-white/[0.08] to-black/[0.4] p-4 backdrop-blur-xl gold-glow">
+          <NextActionCard command={command} onExecute={handleExecute} />
+        </div>
+        <ForgeCard title="Proof Layer">
+          <ProofCard proof={proof} />
+        </ForgeCard>
+        <ForgeCard title="Recovery Path">
+          <RecoveryCard recovery={recovery} />
+        </ForgeCard>
       </div>
 
       {/* 🔥 HOME COMMAND CENTER (10-Second Engine) */}
@@ -167,17 +180,16 @@ export default function SovereignLedger() {
       {!isPro && <UpgradeCard />}
 
       {/* 🔥 AI INSIGHT */}
-      <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-        <p className="text-xs text-zinc-400">AI Insight</p>
+      <ForgeCard title="AI Insight">
         <p className="mt-2 text-sm text-zinc-300">
           {decision?.explanation || "Analyzing your financial behavior..."}
         </p>
-      </div>
+      </ForgeCard>
 
       {/* 🔥 PULSE */}
-      <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+      <ForgeCard title="Pulse Feed">
         <AlphaPulse />
-      </div>
+      </ForgeCard>
 
       {/* 🔥 AVATAR / IDENTITY */}
       <SovereignAvatarCard profile={DEFAULT_PROFILE} />

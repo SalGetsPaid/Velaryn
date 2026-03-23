@@ -6,6 +6,8 @@
 @import "@fontsource/playfair-display/700.css";
 
 :root {
+  --gold: #e8c547;
+  --bg: #020202;
   --gold-primary: #e8c547;
   --gold-secondary: #f5e8c7;
   --emerald-primary: #34d399;
@@ -58,17 +60,58 @@ html {
 
 body {
   min-height: 100vh;
-  background-color: var(--background);
+  background: var(--bg);
   background-image:
     radial-gradient(circle at 50% -20%, var(--glow-subtle), transparent 45%),
     radial-gradient(circle at 0% 100%, rgba(212, 175, 55, 0.05), transparent 30%),
     radial-gradient(circle at 100% 0%, rgba(255, 215, 0, 0.05), transparent 35%);
-  color: var(--foreground);
+  color: white;
   font-family: "Inter", "Neue Haas Grotesk", var(--font-geist-sans), system-ui, sans-serif;
   font-feature-settings: "cv02", "cv03", "cv04", "ss01";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color: transparent;
+}
+
+.gold-glow {
+  box-shadow: 0 0 40px rgba(232, 197, 71, 0.15);
+}
+
+.velaryn-bg {
+  background:
+    radial-gradient(circle at top, rgba(232, 197, 71, 0.12), transparent 30%),
+    radial-gradient(circle at bottom, rgba(255, 255, 255, 0.03), transparent 40%),
+    var(--bg);
+}
+
+.velaryn-noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+.forge-card {
+  position: relative;
+  border-radius: 1rem;
+  border: 1px solid rgba(232, 197, 71, 0.2);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 1.25rem;
+  box-shadow: 0 0 40px rgba(232, 197, 71, 0.15);
+}
+
+.forge-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(232, 197, 71, 0.9), transparent);
+  opacity: 0.4;
+}
+
+.execute-button:active {
+  transform: scale(0.97);
+  box-shadow: 0 0 20px rgba(232, 197, 71, 0.4);
 }
 
 .card-glass {

@@ -16,6 +16,19 @@ export default function SovereignBiometricGate({ children }: { children: React.R
 
     const verify = async () => {
       try {
+        const isLocalPreview =
+          process.env.NODE_ENV === "development" ||
+          window.location.hostname === "localhost" ||
+          window.location.hostname === "127.0.0.1";
+
+        if (isLocalPreview) {
+          if (mounted) {
+            setIsUnlocked(true);
+            setIsChecking(false);
+          }
+          return;
+        }
+
         if (pathname === "/onboarding") {
           if (mounted) {
             setIsUnlocked(true);

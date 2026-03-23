@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Sparkles, TrendingUp, Shield } from "lucide-react";
+import ForgeCard from "@/components/ForgeCard";
 
 interface SovereignHomeProps {
   action?: {
@@ -23,41 +24,45 @@ export default function SovereignHome({
   streak,
 }: SovereignHomeProps) {
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="relative min-h-screen text-white">
+      <img
+        src="/anvil-upgrade.svg"
+        alt=""
+        aria-hidden="true"
+        className="absolute bottom-0 right-0 w-[420px] max-w-[70vw] opacity-10 pointer-events-none select-none"
+      />
+
       {/* HEADER */}
-      <div className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-black/80 backdrop-blur-sm">
+      <div className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-black/70 backdrop-blur-sm">
         <div className="max-w-2xl mx-auto px-6 py-4">
-          <h1 className="text-2xl font-bold">Velaryn</h1>
+          <h1 className="font-[Playfair_Display] text-3xl text-amber-200 tracking-wide">Velaryn</h1>
           <p className="text-xs text-zinc-500">Your Sovereign Wealth System</p>
         </div>
       </div>
 
       {/* MAIN CONTENT */}
       <div className="max-w-2xl mx-auto px-6 py-24 pb-32 space-y-6">
-
         {/* NEXT ACTION (PRIMARY) */}
         <motion.div
           whileHover={{ scale: 1.01 }}
-          className="rounded-2xl border border-amber-300/20 bg-gradient-to-b from-white/10 to-white/[0.02] p-5 shadow-[0_0_40px_rgba(212,175,55,0.15)]"
+          className="rounded-2xl border border-amber-300/30 bg-gradient-to-b from-white/[0.08] to-black/[0.4] p-6 backdrop-blur-xl gold-glow"
         >
-          <p className="text-[10px] uppercase tracking-[0.3em] text-amber-300">Next Action</p>
+          <p className="text-[10px] tracking-[0.3em] text-amber-300 uppercase">Immediate Command</p>
 
-          <h2 className="mt-2 text-lg font-semibold text-white">
+          <h2 className="mt-2 font-[Playfair_Display] text-xl font-semibold text-white">
             {action?.title || "Optimize your cash flow"}
           </h2>
 
-          <p className="mt-1 text-xs text-zinc-400">
+          <p className="mt-1 text-sm text-zinc-400">
             {action?.explanation || "Small actions create massive long-term gains."}
           </p>
 
-          <div className="mt-4 flex items-center justify-between">
-            <div className="text-sm text-emerald-300 font-semibold">
-              +${action?.impactYearly || 1200}/yr
-            </div>
+          <div className="mt-5 flex items-center justify-between gap-4">
+            <span className="text-emerald-300 font-medium">+${action?.impactYearly || 1200} long-term</span>
 
             <button
               onClick={onExecute}
-              className="rounded-xl bg-amber-300 text-black px-4 py-2 text-xs font-bold hover:bg-amber-200 transition"
+              className="execute-button rounded-xl bg-amber-300 text-black px-5 py-2 font-bold transition hover:scale-105 hover:bg-amber-200"
             >
               Execute
             </button>
@@ -70,7 +75,7 @@ export default function SovereignHome({
         </div>
 
         {/* AI COACH FEED */}
-        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 space-y-2">
+        <ForgeCard title="AI Coach">
           <div className="flex items-center gap-2 text-xs text-zinc-400">
             <Sparkles size={14} /> AI Coach
           </div>
@@ -84,41 +89,39 @@ export default function SovereignHome({
           ) : (
             <div className="text-sm text-white">Stay consistent. You're building real momentum.</div>
           )}
-        </div>
+        </ForgeCard>
 
         {/* PROGRESS + IDENTITY */}
         <div className="grid grid-cols-2 gap-4">
-
           {/* STREAK */}
-          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-center">
+          <ForgeCard title="Streak" className="text-center">
             <p className="text-[10px] text-zinc-500 uppercase tracking-[0.2em]">Streak</p>
             <p className="text-xl font-bold text-amber-200">{streak || 5} days</p>
-          </div>
+          </ForgeCard>
 
           {/* IDENTITY */}
-          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-center">
+          <ForgeCard title="Status" className="text-center">
             <p className="text-[10px] text-zinc-500 uppercase tracking-[0.2em]">Status</p>
             <p className="text-sm text-emerald-300 font-semibold">Wealth Builder</p>
-          </div>
+          </ForgeCard>
         </div>
 
         {/* SECONDARY INSIGHTS */}
         <div className="grid grid-cols-2 gap-4">
-          <div className="rounded-xl border border-white/10 bg-white/[0.02] p-3">
+          <ForgeCard title="Growth">
             <div className="flex items-center gap-2 text-xs text-zinc-400">
               <TrendingUp size={14} /> Growth
             </div>
             <p className="text-sm text-white mt-1">+12% this month</p>
-          </div>
+          </ForgeCard>
 
-          <div className="rounded-xl border border-white/10 bg-white/[0.02] p-3">
+          <ForgeCard title="Protection">
             <div className="flex items-center gap-2 text-xs text-zinc-400">
               <Shield size={14} /> Protection
             </div>
             <p className="text-sm text-white mt-1">$2,100 saved</p>
-          </div>
+          </ForgeCard>
         </div>
-
       </div>
     </div>
   );

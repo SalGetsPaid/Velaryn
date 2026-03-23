@@ -1,3 +1,5 @@
+import ForgeCard from "@/components/ForgeCard";
+
 interface CardProps {
   title: string;
   value: string | number;
@@ -6,15 +8,10 @@ interface CardProps {
 
 export default function Card({ title, value, highlight }: CardProps) {
   return (
-    <div
-      className={`p-4 rounded-2xl border ${
-        highlight ? "border-emerald-400 bg-emerald-400/5" : "border-white/10 bg-white/[0.03]"
-      }`}
-    >
-      <p className="text-xs text-zinc-500 uppercase tracking-wider">{title}</p>
-      <p className={`text-lg font-semibold mt-2 ${highlight ? "text-emerald-300" : "text-white"}`}>
+    <ForgeCard title={title} className={highlight ? "border-emerald-400/50 bg-emerald-400/5 gold-glow" : ""}>
+      <p className={`mt-1 text-lg font-semibold ${highlight ? "text-emerald-300" : "text-white"}`}>
         {value}
       </p>
-    </div>
+    </ForgeCard>
   );
 }

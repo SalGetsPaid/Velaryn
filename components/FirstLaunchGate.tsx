@@ -11,6 +11,16 @@ export default function FirstLaunchGate({ children }: { children: React.ReactNod
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
+    const isLocalPreview =
+      process.env.NODE_ENV === "development" ||
+      window.location.hostname === "localhost" ||
+      window.location.hostname === "127.0.0.1";
+
+    if (isLocalPreview) {
+      setIsReady(true);
+      return;
+    }
+
     const rawProfile = localStorage.getItem(PROFILE_KEY);
     const parsed = rawProfile ? (JSON.parse(rawProfile) as { onboardingComplete?: boolean } | null) : null;
     const isOnboarded = Boolean(parsed?.onboardingComplete);

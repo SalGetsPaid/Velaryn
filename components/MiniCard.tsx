@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import ForgeCard from "@/components/ForgeCard";
 
 interface MiniCardProps {
   icon: ReactNode;
@@ -8,12 +9,12 @@ interface MiniCardProps {
 
 export default function MiniCard({ icon, label, value }: MiniCardProps) {
   return (
-    <div className="p-3 rounded-xl border border-white/10 bg-white/[0.02]">
+    <ForgeCard title={label} className="p-3">
       <div className="flex items-center gap-2 text-xs text-zinc-400">
         {icon}
         <span>{label}</span>
       </div>
       <p className="text-sm text-white font-semibold mt-2">{value}</p>
-    </div>
+    </ForgeCard>
   );
 }

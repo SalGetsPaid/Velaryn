@@ -58,10 +58,15 @@ export default function RootLayout({
             <QueryProvider>
               <SovereignProvider>
                 <ServiceWorkerRegistrar />
-                <FirstLaunchGate>
-                  <SovereignBiometricGate>{children}</SovereignBiometricGate>
-                </FirstLaunchGate>
-                <Navbar />
+                <div className="relative velaryn-bg min-h-screen overflow-hidden">
+                  <div className="velaryn-noise absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none" />
+                  <div className="relative z-10 min-h-screen flex flex-col">
+                    <FirstLaunchGate>
+                      <SovereignBiometricGate>{children}</SovereignBiometricGate>
+                    </FirstLaunchGate>
+                    <Navbar />
+                  </div>
+                </div>
               </SovereignProvider>
             </QueryProvider>
           </GlobalErrorBoundary>

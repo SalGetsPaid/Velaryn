@@ -6,6 +6,7 @@ import { getDefaultUserProfile } from "@/lib/wealthEngine";
 import { useAICoach } from "@/hooks/useAICoach";
 import { useSocialProof } from "@/hooks/useSocialProof";
 import SovereignHome from "@/components/SovereignHome";
+import { triggerHaptic } from "@/lib/triggerHaptic";
 
 const DEFAULT_PROFILE = getDefaultUserProfile();
 
@@ -26,6 +27,8 @@ export default function Home() {
   const socialCount = useSocialProof();
 
   const handleExecute = () => {
+    triggerHaptic(200);
+
     const boostedAmount = Math.round(command.amount);
     setEvents((prev) => [{ amount: boostedAmount, date: new Date().toISOString() }, ...prev]);
     
