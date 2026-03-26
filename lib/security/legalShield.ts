@@ -5,11 +5,15 @@ import path from "node:path";
 export type LegalShieldReceiptInput = {
   principalId: string;
   acceptedAt: string;
+  actionScope?: "manifesto" | "vault-init";
   biometricVerified: boolean;
   biometricMethod: string;
   policyVersion: string;
   termsVersion: string;
   privacyVersion: string;
+  disclosureVersion?: string;
+  clickwrapAccepted?: boolean;
+  solvencyVerified?: boolean;
   userAgent?: string;
   forwardedFor?: string;
 };
@@ -36,11 +40,15 @@ function signReceipt(input: Omit<LegalShieldReceipt, "signature">) {
   const payload = [
     input.principalId,
     input.acceptedAt,
+    input.actionScope,
     input.biometricVerified,
     input.biometricMethod,
     input.policyVersion,
     input.termsVersion,
     input.privacyVersion,
+    input.disclosureVersion ?? "",
+    input.clickwrapAccepted ?? false,
+    input.solvencyVerified ?? false,
     input.receiptId,
     input.createdAt,
     input.ipHash,
@@ -56,6 +64,10 @@ export async function recordLegalShieldReceipt(input: LegalShieldReceiptInput) {
   const rawForwardedFor = (input.forwardedFor || "unknown").split(",")[0]?.trim() || "unknown";
   const base: Omit<LegalShieldReceipt, "signature"> = {
     ...input,
+    actionScope: input.actionScope ?? "manifesto",
+    disclosureVersion: input.disclosureVersion,
+    clickwrapAccepted: input.clickwrapAccepted ?? false,
+    solvencyVerified: input.solvencyVerified ?? false,
     receiptId: `ls_${Date.now()}_${randomUUID().slice(0, 8)}`,
     createdAt,
     ipHash: hashIp(rawForwardedFor),
